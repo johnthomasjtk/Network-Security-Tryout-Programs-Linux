@@ -1,7 +1,7 @@
 
 
 
-FLAGS = -ggstabs
+FLAGS = -ggstabs --execstack
 #CC = gcc
 AS = as
 LD = ld
@@ -13,30 +13,28 @@ LD = ld
 #demo1:$(OBJ)
 #	$(LD) -o $@ demo1.o
 
-asm1: asm1.o
+exit: exit.o
 	$(LD) -o $@ $< 
 
-asm2: asm2.o
-	$(LD) -o $@ $<
-
-asm3: asm3.o
+exitfixed: exitfixed.o
 	$(LD) -o $@ $< 
 
-asm4: asm4.o
+exitfixed1: exitfixed1.o
 	$(LD) -o $@ $< 
 
-asm5: asm5.o
+shell: spawnshell.o
 	$(LD) -o $@ $< 
 
-asm6: asm6.o
+shellasm: shellasm.o
 	$(LD) -o $@ $< 
 
-helloworld: helloworld.o
-	$(LD) -o $@ $<
- 
-vardemo: vardemo.o
-	$(LD) -o $@ $<
-all: asm1 asm2 asm3 asm4 asm5 asm6 helloworld vardemo
+shellcode: shellcode.o
+	$(LD) -o $@ $< 
+
+all: exit exitfixed spawnshell shellasm shellcode
 clean:
 	rm -f *.o
-	rm -f asm1 asm2 asm3 asm4 asm5 asm6 helloworld vardemo
+	rm -f exit
+	rm -f exitfixed
+	rm -f shellasm 
+	rm -f shellcode
